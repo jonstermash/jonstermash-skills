@@ -17,7 +17,7 @@ Or from your terminal:
 claude plugin marketplace add jonstermash/jonstermash-skills
 ```
 
-Once installed, every skill is available namespaced under the plugin, e.g. `/jonstermash-skills:make-it-make-sense`. New skills added to the repo arrive automatically on `/plugin marketplace update`.
+Once installed, invoke a skill by its short name — `/make-it-make-sense`. The namespaced form, `/jonstermash-skills:make-it-make-sense`, also works and is the unambiguous fallback if two plugins ever share a skill name. New skills added to the repo arrive automatically on `/plugin marketplace update`.
 
 ## Skills
 
