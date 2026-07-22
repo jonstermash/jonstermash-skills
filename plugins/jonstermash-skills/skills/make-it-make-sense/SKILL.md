@@ -4,12 +4,13 @@ description: >-
   Zoom out and simplify any written or presented output so it's understandable on the first pass.
   AI output is almost always too detailed, too dense, and pitched too deep, so simplifying is the
   DEFAULT, not a special case — but the result must stay true, non-redundant, and correctly framed;
-  never trade accuracy for brevity. Use it whenever PRODUCING a deliverable, not only revising one — a
-  post, deck, memo, or doc written from scratch counts. Applies to a slide deck, report, memo, email,
-  doc, diagram, or summary, and fires on cues
+  never trade accuracy for brevity. Runs as a procedure: frame the reader, then passes over
+  substance, structure, and line, each closed by a gate, then a cold read. Use it whenever
+  PRODUCING a deliverable, not only revising one — written from scratch counts. Applies to a slide
+  deck, report, memo, email, doc, diagram, or summary, and fires on cues
   like "simplify," "zoom out," "make it high-level," "too wordy / dense / technical / long," "tighten
   this," "too much jargon," "wall of text," "make it clearer," "fix the titles," or "is that true?"
-  Often run as the /make-it-make-sense slash command; when in doubt whether output is too in-depth,
+  When in doubt whether output is too in-depth,
   assume it is and run the pass. A separate opt-in --codify flag drafts Instructions-for-Claude
   additions from a session's voice edits.
 ---
@@ -22,142 +23,95 @@ The goal is clarity — understandable on the first pass. AI outputs are almost 
 
 But cutting is the usual move, not the only one. Sometimes clarity means restructuring, reframing, or *adding* a missing signpost or first step. And whatever the move, the result must stay **true, non-redundant, and correctly framed** — simpler-but-wrong is worse than slightly-longer-but-right.
 
+## How this skill runs
+
+An editor doesn't hold fifteen loose rules in mind. They run a **procedure**: know the reader, then work the piece in passes, and each pass ends in a check they actually perform. This skill is that procedure.
+
+1. **Frame the reader** — infer who it's for, state it, edit against it.
+2. **Pass 1 · Substance** — is it true, backed, and at the right depth?
+3. **Pass 2 · Structure** — does the shape carry the argument?
+4. **Pass 3 · Line** — does it read smoothly out loud?
+5. **Cold read** — would a stranger get it? Ship, or loop back.
+
+Each pass does its moves **then clears a gate** before you move on. The gate is the point — a rule you read but don't run is a rule that fails, and a check that lives only at the very end is the one that quietly gets skipped. So the gate closes the pass; you don't leave a pass until it's clear.
+
+The moves below are stated in one line each. The tell-lists, examples, and edge cases live in `references/` — load the named file when the pass needs it. But the **gate fires from this file alone**: you never need a reference open to know the check.
+
 ## When it makes sense
 
 Simplifying is the default, but it earns its keep most in anything meant to be **understood quickly** — decks, summaries, updates, proposals, anything with an audience and a narrow window of attention. The further a piece sits from "reference material someone studies" and the closer to "something someone skims once," the more this pass matters.
 
 Ease off in the few cases where depth is the deliverable: reference docs and specs where completeness is the point, legal or technical material where precision can't be traded for brevity, or when the reader has asked for the full picture. Even then, simplify the *framing* — lead with the answer, signpost the structure — and let the depth live underneath.
 
-## The pass
+---
 
-Two parts: **shape** the piece, then **verify** it. Both are the procedure. The verify steps are the ones that quietly get skipped when they live only in the prose sections below — so they're numbered steps here, not background reading. A rule you read but don't run is a rule that fails.
+## Frame the reader
 
-### Shape it
+Everything downstream — how deep, what to cut, what a heading can assume — is a judgment about *someone*. So name them first. This is the one step you do before touching a word.
 
-1. **Name the subject.** Every piece is about someone — usually the reader, the writer, or a named actor. Decide who, and keep them the subject throughout. The failure mode is quietly swapping in a hypothetical third party ("a VP skimming your deck"): it reads plausibly sentence by sentence and leaves the reader asking who "you" even is.
-2. **Lead with the answer.** Put the single main takeaway first, before any supporting detail. The reader should get the point in seconds, not after wading through buildup.
-3. **Ask what's missing, not only what's extra.** Before you cut, check whether the confusion is *absence* rather than excess — a missing signpost, an unstated first step, an order that fights the reader's mental model. If so, restructure, reframe, or add the missing piece. Cutting is the usual move, not the only one, and a piece can be too short to follow.
-4. **Cut to what matters.** Keep the few points that carry the message. Everything else gets dropped or moved down a layer.
-5. **Plain words.** Replace jargon, acronyms, and internal/technical terms with what they actually mean. If a term has to stay, define it once, simply.
-6. **Move the detail out.** Zoom out to the level someone grasps quickly. Mechanics and exhaustive detail move into an appendix, speaker notes, or a linked doc — **relocated, not deleted**.
-7. **Match the medium.** Slides: a headline plus a few short phrases, one idea per slide, detail in the speaker notes. Docs: short prose, bottom-line first. Email: the ask in the first line. Diagrams: see "Diagrams read from the subject" below.
-8. **Don't overshoot into bare — or into cute.** Simple ≠ empty: every point you keep needs a concrete anchor — a number, a name, an example — so it still says something. **But the anchor comes from the source or the person, never from you.** If you don't have a real number, name, or example, ask for one or stay general — an invented anchor reads *more* credible than the vague version and it's false. And don't reach for personality where a plain statement is clearer; a forced quip or teaser in place of a direct line costs clarity and ages badly. Aim for a sparse surface with real substance underneath.
+- **Infer from the draft's own signals.** The medium, the vocabulary already in use, what the draft explains vs. assumes, what it asks the reader to do — a competent editor reads all of it. You don't need to be told the audience; you can usually see it.
+- **State it in one visible line.** "Editing this as: an exec who knows the project, deciding on budget." Stating it is how a wrong guess gets caught — and how the rest of the pass has something to aim at.
+- **Ask only on a genuine fork.** Ask the person *only* when two readers are both plausible **and** the two readings would produce different edits — an exec skim vs. an engineer's reference. Most drafts don't fork; state the assumption and proceed. (When no one's there to answer, the stated assumption *is* the answer.)
+- **Name the subject too.** Separate from who it's *for*: who it's *about*. Every piece has a subject — usually the reader, the writer, or a named actor. Pick one and hold it throughout; don't quietly swap in a hypothetical third party ("a VP skimming your deck"), which reads fine sentence by sentence and leaves the reader asking who "you" even is.
 
-### Then verify
+**Gate:** the reader is stated in one line. If you can't state it, that's the first finding — resolve it before editing.
 
-Run each of these — don't just read it. These are the checks that kept failing when they lived only as prose sections further down.
+---
 
-9. **Check every referent.** After any cut or reorder, re-read every pronoun, every "this / that / these," and every definite article ("the workflow," "the playbook") and confirm the thing it points to still exists. Check heading→first-sentence seams and narrative person the same way. → *"Check every referent after you cut."*
-10. **Redundancy and contradiction.** Compare every section against every other, asking both: did the reader already get this, and do these two claims disagree? → *"Redundancy and contradiction across the whole piece."*
-11. **Heading test.** Read the headings alone, in order: each distinct, together they tell the story, zero colons-as-crutch, zero filler — and no pronoun whose antecedent lives outside the outline. → *"Titles and headings."*
-12. **Rhythm.** Break run-on sentences — but don't smooth a fragment that's the writer's deliberate punch. → *"Let the sentences breathe."*
-13. **Verify every specific.** Confirm each figure, name, and date against the source — including the ones already in the draft. When the draft is AI-written, its specifics are the likeliest fabrications. → *"Simplify without distorting."*
+## Pass 1 · Substance
 
-## Simplify without distorting
+Is it true, backed, and pitched at the right depth for this reader?
 
-When you simplify, the shorter version must stay true — to the facts *and* to the advice. This is the constraint on every other move in this skill.
+- **Ask what's missing, not only what's extra.** Before cutting, check whether the confusion is *absence* — a missing signpost, an unstated first step, an order that fights the reader's mental model. A piece can be too short to follow. Restructure or add, not just cut.
+- **Cut to what matters.** Keep the few points that carry the message; drop or demote the rest.
+- **Say it plainly.** Replace jargon, acronyms, and internal terms with what they mean. If a term must stay, define it once — by its essence, not its examples (`references/framing-tells.md`).
+- **Move the detail out.** Mechanics and exhaustive detail go to an appendix, speaker notes, or a linked doc — **relocated, not deleted**.
+- **Don't overshoot into bare — or into cute.** Every kept point needs a concrete anchor (number, name, example) or it says nothing — but the anchor comes from the source or the person; an invented one reads *more* credible than the vague version and it's false (no real anchor → ask, or stay general). And don't reach for personality where a plain statement is clearer: a forced quip or teaser in place of a direct line costs clarity and ages badly. Aim for a sparse surface with real substance underneath.
+- **Impact over activity.** Lead with what the reader *gets*, not what you *did* — and never frame your own effort, or a cost to them, as their win. (`references/framing-tells.md`)
+- **Cut defensive framing.** Copy that pre-justifies or braces for criticism points the eye at the weak spot. State what happened, then the path forward. (`references/framing-tells.md`)
+- **Make quantitative claims land.** Every headline number tied to money or a decision; causation kept distinct from correlation; comparisons not overclaimed. And **"not a fluke" is a defensive assertion — strip it**: re-earn it only by *showing* the denominator (the volume behind the result); if you can't show the volume, flag the figure and drop the claim. Never assert it, never infer the number. (`references/quant-claims.md`)
+- **Frame decisions consultatively.** When the piece asks the reader to decide: first confirm each item is actually *their* call to make — don't route the author's own decision (internal staffing, headcount) to the reader — then structure it situation → options → recommendation → the specific ask. Don't fabricate a recommendation the author never gave. (`references/framing-tells.md`)
+- **Don't distort while simplifying, and source claims from the artifact itself.** Watch the distortion tells (over-generalized quantifiers, collapsed actions, flipped advice); write about a thing from the thing, read in full. (`references/framing-tells.md`)
 
-Distortions to watch for:
+**Verify every specific — including the ones already in the draft.** A number's presence in an AI-written draft is not evidence it's true; its figures and names are the *likeliest* fabrications, and they read as the author's own. Confirm each against the source or ask the person; if you can't, flag it rather than ship it clean.
 
-- **Over-generalizing quantifiers** — "this covers *every* segment" when it covers three; an "*always*/*all*/*never*" the source doesn't support. Name the real scope.
-- **Collapsing distinct actions** — calling a tool a "fix" when it only *diagnoses*; saying a step "sends" the email when it drafts one; "saves to the shared drive" when it writes to a temp file. Verb precision matters.
-- **Wrong specifics** — figures, names, dates, syntax, menu paths, UI labels. Confirm against the actual source, not your memory of it. **And a specific's presence in the draft is not evidence it's true** — when the draft is itself AI-written, its numbers and names are the likeliest fabrications in the piece, and they read as the author's own. Confirm every figure, name, and date against the original source or ask the person. "I won't invent a number for you" is not a reason to *protect* a number that was already invented.
-- **Flipped advice** — compressing "write a detailed brief" down to "keep it short," or "review carefully" into "trust the output." You often know more than the reader; don't let a neat phrasing encode the wrong lesson.
+**Gate:** the takeaway is statable in one line — the spine, even where the piece both reports a result and asks for a decision; every figure reconciles to a source or is flagged; no anchor is invented.
 
-If you can't verify a simplified claim, flag it rather than shipping it clean and confident.
+---
 
-## Check every referent after you cut
+## Pass 2 · Structure
 
-Cutting is what breaks referents: delete the sentence that introduced "the playbook," and every later "the playbook" points at nothing. The prose stays grammatical, so it survives a re-read. After any cut, re-read every pronoun, every "this / that / these," and every definite article — "the workflow," "the review," "the skill" — and confirm the thing it names still exists in the piece. If it doesn't, name it again or cut the reference.
+Does the shape carry the argument — before anyone reads a word?
 
-Cuts and reorders orphan more than nouns:
+- **Lead with the answer.** The main takeaway first, before buildup. The point lands in seconds.
+- **Match the medium.** Slides: a headline plus a few short phrases, one idea each. Docs: short prose, bottom-line first. Email: the ask in the first line. (`references/layout.md`)
+- **Make the headings do the work.** A heading is a plain label *or* a real claim — never a limp in-between, and never spin forced onto reference content or an editorialized read of a result. (`references/titles.md`)
+- **Shape it for scanning.** Break buried lists onto their own lines; build a real hierarchy; spend emphasis on the few words that carry weight; let whitespace and reading direction do their job. (`references/layout.md`)
+- **Diagrams read from the subject.** A diagram is content before it's a visual: subject as the focus and origin, every arrow a true relationship. (`references/layout.md`)
+- **Kill redundancy and contradiction.** Sweep every section against every other, both questions: did the reader already get this (merge/cut — emphasis comes from placement, not repetition), and do these two claims disagree (a contradiction reads clean locally and only surfaces when the pair is held together)? An executive summary earns its place only at a **different altitude** than the detail it precedes — a one-line verdict plus what it sets up, not a re-telling. Usual offenders: a chart and a table showing the same numbers, an intro restating the executive summary, a "next steps" repeating the recommendation, two diagrams making the same point.
 
-- **Transitions.** A section can survive a restructure with its heading intact but its opening line no longer connecting to what now precedes it. After any reorder, re-read each heading→first-sentence seam, not just the nouns — "how do we get from this heading to this paragraph?"
-- **Person.** Pick the piece's person — "I," "you," or the imperative — and hold it. Don't let a passage open in one and close in another ("*Ask* for shorter and the count drops… now *I'm* reassembling the logic myself"). Splicing sentences from different drafts is exactly how the drift creeps in, so check person on the same pass you check referents: after every splice.
+**Gate:** read the headings alone, in order. They're each distinct, they tell the story on their own, and they carry zero colons-as-crutch, zero filler, and no pronoun whose antecedent lives outside the outline.
 
-## Write about the artifact from the artifact
+---
 
-When the piece describes an existing artifact — a skill, a product, a doc, a feature — its substance comes from the artifact itself, read in full, not from your memory of conversations about it. Quote or closely paraphrase what it actually says; don't write *around* it with anecdotes and invented examples standing in for its real content. Sourcing from the artifact also fixes fabrication for free, because its own examples replace the ones you'd otherwise invent.
+## Pass 3 · Line
 
-Represent its scale honestly, too. "It'll be running on everything" for what is really a list of editing moves is scope inflation — the heading-buzzword problem applied to a claim. Describe what the thing is, at the size it actually is.
+Does it read smoothly, out loud, with nothing dangling?
 
-## Titles and headings
+- **Check every referent.** Cutting orphans references: after any cut or reorder, re-read every pronoun, "this/that/these," and definite article ("the playbook") and confirm the thing it names still exists. Same for heading→first-sentence seams and for narrative person — pick "I," "you," or the imperative and hold it. (`references/line-edit.md`)
+- **Mind the rhythm.** Break run-on sentences where they sprawl; don't overcorrect into stuttering fragments. But AI-stutter and a writer's deliberate punch look identical to a pattern-matcher — before smoothing a fragment, check it isn't the author's voice, and flag rather than silently fix. (`references/line-edit.md`)
+- **Cut the filler, keep the piece honest.** No unrequested pleasantries or decorative asides; keep scaffolding (cross-references, counts, "three questions" promises) in sync with the actual content; re-verify self-referential facts (round/word counts, "the version you're reading") that the editing itself invalidates; and for how-to content, make sure the reader can actually *start*. (`references/line-edit.md`)
+- **Keep process and meta out of the deliverable.** Change-logs, edit rationale, "(was slide 19)," "27 slides → 25" — those go in the message to the requester, not inside the artifact. The finished piece reads as if it were always the plan.
 
-**A heading is either a plain label or a real hook — never a limp in-between.** This applies to any medium and any level: a slide headline, a doc section head, a report title, an email subject line — and the smaller labels too, a **bolded lead-in** inside a section or a list-item label. If it heads content, it's a heading.
+**Gate:** read it aloud (or sub-vocalize). Zero stumbles, zero half-thoughts, zero sentences you have to re-run to parse.
 
-- **Reference / utility content** — content someone looks things up in rather than reads through (an FAQ, a glossary, a cheat sheet, a spec or comparison table, a methodology appendix, a table of contents): use the plain, descriptive label — "FAQ," "Glossary," "Pricing Tiers," "Methodology." Don't dress these up; a cute title on reference content reads as noise. (Rename a section from "Everything You've Ever Wondered" back to "FAQ.")
-- **Argument / narrative content** — content that makes a point the reader follows start to finish (the pitch, the finding, the takeaway): use a genuine claim or question with tension. A report finding: "Churn is a pricing problem, not a product one." An email subject: "We're moving the launch to August." A slide: "Never start from a blank page." Each creates a pull the body then resolves. The heading names the idea or makes the claim; the specifics live in the body — "Why the launch slipped" over "Launch moved from June 14 to August 2 over vendor issues."
+---
 
-The arbiter between the two failure directions: **does the heading make a claim (or pose a question) the body then pays off?** A hook that isn't a claim is a teaser; a label on argument content is a summary.
+## Cold read
 
-**Anti-patterns to reject on sight:**
+Read it back cold and fast, as if you'd never seen it. If the main point isn't obvious within a few seconds, or any line needs insider knowledge to follow, the piece isn't done — route the failure back to the pass that owns it (a wrong number → Substance, a heading that doesn't land → Structure, a sentence you stumbled on → Line) and run that pass again.
 
-- **Vague buzzwords** — "revolutionize," "delve," "game-changer," "unlock," "supercharge," "seamless," "elevate." Empty calories; cut them.
-- **Zero tension** — the heading summarizes the content instead of creating curiosity. A report head like "Overview of Our Findings," or a slide like "The Steps Build on Each Other."
-- **Cheesy colon constructions** — "Q3 Results: What You Need to Know," "Our Approach: A Deep Dive." Cut the colon; say the thing.
-- **Captain Obvious** — a fact with no tension ("Our Product Has Several Features," "The Report Is Attached"). This one isn't limited to headings: the same empty statement in body prose ("under the hood, it's a text file") is the same failure — cut it or make it earn its place.
-- **Orphaned pronoun** — a heading leaning on "it / this / that / what" whose antecedent lives in the paragraph above rather than in the outline ("This is every time," "What it does," "Knowing how it fails is the skill" — knowing how *what* fails?). It reads fine in place because the body supplies the referent — which is exactly what a heading can't borrow. A heading names its own subject.
-- **Forced cleverness** — reaching for a catchy count or teaser ("Five Rules Worth Keeping," "3 Things That'll Surprise You").
-- **Filler words** — "using it *well*," "*A quick look at* X." If a word can go, it goes.
-- **Over-long** — if it wraps to two lines, it's probably a subheading. Demote the long "clever" line and write a short heading above it.
-
-**Test:** read only the headings (or subject lines, or the doc's outline) in order. They should (a) each be distinct, (b) tell the story on their own, (c) contain zero colons-as-crutch and zero filler, and (d) carry no pronoun whose antecedent lives outside the outline — reading the headings alone, any "it / this / that" still standing needs its noun spelled out.
-
-## Redundancy and contradiction across the whole piece
-
-After a draft, sweep the **whole** piece — every section, paragraph, or slide against every other. For any two, ask **both** questions:
-
-- **Did the reader already get this?** If it's covered, merge or cut. Emphasis comes from placement, not repetition.
-- **Do these two claims disagree?** A contradiction reads fine locally and only surfaces when the pair is held together — an intro calling the output "accurate and unusable at the same time" against a later section arguing it's frequently wrong. Each half is clean alone; only the pairing exposes it.
-
-The usual redundancy offenders: a chart and a table showing the same numbers; an intro that restates the executive summary; a "next steps" that repeats the recommendation; two diagrams making the same point. Each survives until explicitly questioned — so question each pair, on both counts.
-
-## Define by essence, not example
-
-Lead a definition or framing with the core idea in plain terms; attach examples only as illustration ("…e.g. X, Y"). If the examples were removed, the sentence should still define the thing.
-
-The failure mode is a term defined *as* its examples — "context" explained as "the business background, brand, and notes" instead of "the supporting information that helps the work." The examples eat the definition.
-
-## Shape it for scanning
-
-A simplified piece should be **navigable at a glance** — the reader's eye should find the structure before they read a word.
-
-- **Break lists out.** When you're naming several things, give them their own lines as bullets instead of burying them in a sentence. Three bullets register instantly; the same three items inside a sentence have to be untangled first.
-- **Build a hierarchy.** Use headings, subheads, and indentation so the shape of the content shows through the structure alone. Someone reading only the headings should still come away knowing roughly what's there.
-- **Emphasize with intent.** Reach for **bold**, _italic_, or underline on the few words that carry the most weight — a key number, the decisive term, the actual ask. Keep it to a handful, since if half the page is bold then nothing stands out. Spotlight only what's on-message, never a detail that pulls the eye away from the point.
-
-## Let the sentences breathe
-
-Watch the rhythm of the prose, not just the layout. Run-on sentences that pile clause on clause are as hard to follow as a dense paragraph, so break them where they sprawl. But don't overcorrect into a string of clipped, stuttering fragments, because choppy staccato is its own kind of friction. Aim for sentences that move at an even, unforced pace — varied enough to read smoothly, contained enough to stay clear.
-
-**But AI stutter and authorial punch look identical to a pattern-matcher.** Before you smooth a fragment or a cluster of short sentences, check whether it's the writer's own move — present in their published work, or explicitly approved. A one-word fragment used as a deliberate beat ("***Wrong.***") is voice, not a tic. Flag it as a question rather than silently fixing it. The goal is to remove the machine's tics, not the writer's voice.
-
-## Diagrams read from the subject
-
-Diagrams are content before they're visuals — the same clarity pass applies to what a diagram *says*. Put the subject/actor (usually the user) as the visual focus and the origin of the flow, and make every arrow mean something.
-
-- Choose a reading direction that matches the mental model (top-down from the actor is usually safest).
-- Every arrow encodes a true relationship and direction; don't add arrows for decoration or drop them and lean on floating boxes.
-- Represent supporting elements as what they are (a key that "unlocks," not a co-equal box).
-
-The failure mode is a diagram that's technically complete but reads wrong: a misleading left-to-right chain, missing arrows, a helper element drawn as a peer, the subject buried instead of centered.
-
-## Prefer patterns over brittle specifics
-
-For anything that evolves, lock examples to patterns and placeholders and cut content that silently goes stale. Teach the shape, not the snapshot. Use "the {vendor} integration" or "the current leader (X today)"; avoid an exhaustive feature list, a today's-pricing table, or a roster of names that will be wrong next quarter.
-
-This complements the concrete-anchor rule, not contradicts it: every point still needs an anchor — just pick a durable one, or date it ("X today") so the reader knows it's a snapshot.
-
-## Cut the filler, keep the piece honest
-
-- **No unrequested pleasantries or decorative filler.** Greetings and asides addressed to the reader stay out unless the prompter asked for them. Same rule for filler dressed up as structure — an eyebrow (the small kicker line above a headline), parenthetical, footnote, or subtext line that adds personality but no information. Judge the content, not the form: a footnote that cites a source stays; one that makes a joke goes.
-- **Keep scaffolding in sync.** Scaffolding is any part of the piece that describes or points at other parts rather than being content itself — builder notes, section labels, cross-references, page/section counts, a "three questions" promise in an intro. After edits, all of it must match the actual content. Stale instructions undermine trust.
-- **Re-verify facts about the piece itself.** Round counts, word counts, "the version you're reading," "two sections later" — these are invalidated by the very editing this skill performs. "It took six rounds" is true at round six and wrong by round ten; "nearly twice the word count of what you're reading" flips truth-value every time the draft changes length. Re-check every self-referential specific on every pass, and prefer durable phrasings ("nearly twice as long") over exact counts that rot.
-- **Completeness for how-to content** — make sure the reader can actually *start*: prerequisites and the literal first action (e.g. how to turn the thing on) belong in the piece, not assumed.
-
-## Check
-
-Read it back cold and fast. If the main point isn't obvious within a few seconds, or any line needs insider knowledge to follow, simplify again. The verify steps in "The pass" are the itemized checks; this is the gut check they add up to. The strongest test: hand it to a fresh agent (or person) with zero context — whatever they can't follow is exactly what to fix.
+The strongest version: hand it to a **fresh agent or person with zero context**. Whatever they can't follow is exactly what to fix. For high-stakes pieces, do this literally rather than imagining it.
 
 ## The instinct to resist
 
@@ -165,53 +119,4 @@ The pull is to show all the work — to prove the depth is there. But understand
 
 ## `--codify` — turn a session's edits into voice preferences
 
-Opt-in, power-user flag, separate from the editing pass. When the user runs `/make-it-make-sense --codify`, read the *voice* edits from this session and draft additions to their account-wide **Instructions for Claude**. The pass de-slops everyone's output; `--codify` captures one person's voice.
-
-Preferences set cold are near-useless — nobody judges their own voice in the abstract, only against real output. That signal lives in the edits someone makes to finished work, which exist only once a session has run.
-
-**Invoking it is consent.** The user runs `--codify` only when they judge the session voice-defining, so propose freely. You may also **offer it once, proactively**, when a session involved real voice edits — but at most once, and never after light or purely corrective work, where an unprompted pitch is just noise.
-
-### Run it in two steps — never skip the first
-
-1. **Show the edits, then let the user prune.** List the edits you read as voice-defining and wait for the user to cut any that aren't. Count **voice edits, not error-fixes**: fixing a fabrication, an orphaned heading, or slop reveals nothing about voice. Only edits that change *correct* copy for tone or register count — a clipped line warmed up, a hedge cut, a hard CTA softened. Your read is a first pass; the prune is the correction. If nothing in the session qualifies, say so and stop — never manufacture preferences to fill the block.
-2. **Draft the block — after the prune, output it and nothing else.** No preamble, no wrap-up: the user copies from the first header to the last bullet and pastes it into Settings → "Instructions for Claude." That paste is both the write and the approval. No tool writes the field for you, so drafting well is the whole job.
-
-### The draft's format
-
-- **Fixed section headers** — `Voice`, `Length`, `CTAs`, plus any the session surfaces. Same names every time, so the user always finds the same thing in the same place.
-- **One preference per bullet, imperative, self-contained** — each must make sense lifted out of context. No "also," no "as above."
-- **Lead with the rule, not the reason** — "Cut hedging," not "Because AI over-hedges, cut hedging."
-- **Markdown, not JSON or YAML** — plain bullets stay easy to scan and paste by hand.
-- **Mark thin-signal lines `(tentative)`** — see below.
-
-### The `(tentative)` flag
-
-Mark a line `(tentative)` when it rests on one session's signal, or on edits that were only partly about voice — the draft admitting it might be guessing. Default to tentative when unsure.
-
-Drop the flag only on evidence you can see in front of you: if the user shows their current instructions and the same rule is already there from an earlier session, this run confirms it — promote it. Otherwise leave it tentative. You have no memory of past runs, so never promote on a hunch that you proposed it before. A kept-but-never-repeated tentative line stays flagged — that's honest, not a bug.
-
-### Voice only — ask before writing a universal rule
-
-`--codify` writes **voice** lines only: peer address, warm register, sign-off habits, soft CTAs, deliberate fragments. That's one person's voice — wrong to enforce on anyone else.
-
-Universal rules — lead with the answer, never fabricate specifics, plain over clever — belong in *this skill*, not the personal field. When a proposed line is arguably one of those, surface it as a question instead of writing it. "Instructions for Claude" is one account-wide field that fires on every chat, so a universal rule placed there runs whether the skill runs or not — the user's call, not the flag's.
-
-### Example draft
-
-```markdown
-# Style
-
-**Voice**
-- Lead with the answer — no preamble or throat-clearing.
-- Cut hedging, recaps, and clever-for-its-own-sake phrasing.
-- (tentative) Write like a peer who knows the basics; don't lecture or prove the obvious.
-- (tentative) Warm and human, not clipped ad-copy — contractions, asides, the occasional emoticon.
-
-**Length**
-- Default to a few sentences; expand only when I ask.
-
-**CTAs**
-- (tentative) Soft invitations over hard sells.
-```
-
-The confident lines came from edits made this session. The `(tentative)` lines came from a *different* session editing different content — plausibly voice, but unconfirmed, and flagged so the user isn't handed another session's register as their own.
+Opt-in, power-user flag, separate from the editing pass. When the user runs `/make-it-make-sense --codify`, read the *voice* edits from this session and draft additions to their account-wide **Instructions for Claude** — the pass de-slops everyone's output; `--codify` captures one person's voice. Full procedure, format, and the `(tentative)` rule: `references/codify.md`.
