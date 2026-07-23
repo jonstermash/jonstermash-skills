@@ -4,6 +4,15 @@ All notable changes to the `jonstermash-skills` plugin are recorded here. Format
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [0.5.1]
+
+### Added
+- **`make-it-make-sense`: new line tell — the rhythmic `X, not Y` antithesis.** `line-edit.md` now
+  flags antithesis reached for cadence rather than information ("that's a default, not a glitch"),
+  and separates it from the *defensive* `X, not Y` already handled in `framing-tells.md` and from a
+  genuine informative contrast that earns its place. Includes the strike-the-negation test and the
+  same authorial-voice caution the fragment tic carries.
+
 ## [0.5.0]
 
 ### Changed

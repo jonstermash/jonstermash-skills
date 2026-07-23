@@ -1,7 +1,7 @@
 {
   "name": "jonstermash-skills",
   "description": "A growing set of reusable Agent Skills. Currently includes make-it-make-sense.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": {
     "name": "jonstermash"
   },

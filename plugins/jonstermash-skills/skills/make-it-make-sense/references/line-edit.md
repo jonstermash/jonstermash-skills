@@ -17,6 +17,16 @@ Watch the rhythm of the prose, not just the layout. Run-on sentences that pile c
 
 **But AI stutter and authorial punch look identical to a pattern-matcher.** Before you smooth a fragment or a cluster of short sentences, check whether it's the writer's own move — present in their published work, or explicitly approved. A one-word fragment used as a deliberate beat ("***Wrong.***") is voice, not a tic. Flag it as a question rather than silently fixing it. The goal is to remove the machine's tics, not the writer's voice.
 
+## Cut the antithesis reached for as rhythm
+
+`X, not Y` — and its cousins `not just A, but B` and `isn't X — it's Y` — is a pattern-matcher's favorite cadence. Reached for as *emphasis*, it adds a beat but no information: the reader never assumed Y, so denying it teaches nothing. "That's a default, not a glitch," "This isn't a fluke — it's how the models work," "It's not about being right, it's about learning" all scan well and say only their first half.
+
+This is distinct from two nearby constructions that stay. The **defensive** `X, not Y` — "deferred, not abandoned," "on purpose, not under-resourced" — is already stripped by Substance (`framing-tells.md`); that one protects the author. And a **genuine informative contrast** — "automation, not promotion" — earns its place because the reader really would otherwise assume the wrong alternative. The tic is the third case: neither defending nor informing, just keeping time.
+
+**The test:** strike the "not Y" half. If the sentence loses nothing, it was cadence — cut to the plain positive ("That happens by default"). If the negation names an alternative the reader would actually have assumed, keep it.
+
+Same caution as the fragment tic: a deliberate `X, not Y` can be the writer's own voice. If it recurs in their published work, flag it rather than silently purge.
+
 ## Cut the filler, keep the piece honest
 
 - **No unrequested pleasantries or decorative filler.** Greetings and asides addressed to the reader stay out unless the prompter asked for them. Same rule for filler dressed up as structure — an eyebrow (the small kicker line above a headline), parenthetical, footnote, or subtext line that adds personality but no information. Judge the content, not the form: a footnote that cites a source stays; one that makes a joke goes.
