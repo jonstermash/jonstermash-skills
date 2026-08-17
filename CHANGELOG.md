@@ -1,8 +1,68 @@
 # Changelog
 
-All notable changes to the `jonstermash-skills` plugin are recorded here. Format follows
+All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
+
+## [1.0.0]
+
+First stable release. Two skills instead of one, and the first bundled hook. Versions 0.6.0
+through 0.8.0 were developed but never released; their changes are consolidated here.
+
+### Changed
+- **Renamed from `jonstermash-skills`.** The repo and marketplace are now `mims-public`; the
+  plugin inside is **Make It Make Sense** (`make-it-make-sense`). Splitting the two names is the
+  point — the repo is a container that can hold more over time, while the plugin keeps the name
+  the project is actually known by.
+
+  | | |
+  |---|---|
+  | Repo / marketplace | `mims-public` |
+  | Plugin | `make-it-make-sense` — displayed as **Make It Make Sense** |
+  | Skills | `/make-it-make-sense`, `/syco-killer` |
+
+  **The skills are unchanged** — both keep their names and their behavior.
+
+  Breaking for installs. GitHub redirects the old repo URLs, but the marketplace and plugin IDs
+  changed, so existing installs must remove the old marketplace and re-add it:
+  `/plugin marketplace add jonstermash/mims-public` then `/plugin install make-it-make-sense@mims-public`.
+- **Added `displayName`** so the `/plugin` picker shows "Make It Make Sense" rather than the
+  kebab-case identifier.
+- **Plugin description and keywords** now name both bundled skills.
+
+### Added
+- **New skill: `syco-killer`.** Sycophancy treated as an accuracy failure, not a tone problem — it
+  trades information for comfort, and it's self-erasing, since praise that's automatic carries no
+  signal and takes the honest verdicts down with it. Runs **last**, as a gate on the drafted
+  response rather than as framing on the way in; you can't filter a response you haven't written.
+  Four gates, one per moment sycophancy enters: **the Open** (validation openers — delete the first
+  sentence and see if anything is lost), **the Judgment** (the view in the first two sentences,
+  unhedged; rank, don't array), **the Challenge** (sort pushback into new information → update,
+  restated preference on their call → comply without pretending you were convinced, and assertion
+  without evidence → hold and name the falsifier), and **the Close** (a question earns its place
+  only if the two answers produce different work). Two tests decide any given line: the **razor**
+  (delete it — if the reader loses nothing, it was padding) and the **mirror** (an assessment is
+  information only if the opposite verdict was available). Plus a full agentic section — the claim
+  ladder, done-means-done, weakened assertions, and the can't-verify protocol.
+  Explicitly bounded against overcorrection: manufactured disagreement, do-nothing caveats, and
+  hedging a solid answer are the same failure inverted; agreeing with something correct is accuracy;
+  and the posture is never announced, since "to be blunt" is flattery pointed at yourself. Eases off
+  — without switching off — where someone is distressed or courtesy is doing real social work.
+  Tell-lists and worked rewrites in `references/tells.md` and `references/outcome-honesty.md`.
+  Gate 2 and Gate 3 are grounded in the measurement literature rather than intuition: feedback
+  bending to stated authorship and stated sentiment (the best-measured effect), mimicry of user
+  mistakes, citation-flavored pushback as the highest-risk reversal trigger rather than the most
+  convincing one, and the ~78% persistence of a reversal once you've folded. The same literature
+  corrected an over-rotation in the draft — pressure-induced reversals run about 3:1 toward the
+  *right* answer, so "restore the original if you can't name a new fact" was rewritten to accept an
+  error you found on re-check as a legitimate mover.
+- **First bundled hook: opt-in `UserPromptSubmit` injection.** A skill only loads when its
+  description matches the moment, which is the wrong mechanism here — a sycophantic response doesn't
+  feel sycophantic from the inside, so the skill would fire precisely when it isn't needed. The
+  plugin now ships `hooks/hooks.json` and `hooks/syco-killer.sh`, injecting a ~35-line compressed
+  rule ahead of every prompt in every session. Gated on `~/.claude/syco-killer.on` and silent until
+  armed with `/syco-killer`, since installing a writing plugin shouldn't silently change how the
+  assistant talks. `/syco-killer off` disarms; `/syco-killer --audit` reviews recent turns.
 
 ## [0.5.1]
 
