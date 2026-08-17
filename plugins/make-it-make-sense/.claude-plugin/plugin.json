@@ -1,12 +1,12 @@
 {
-  "name": "jonstermash-skills",
+  "name": "make-it-make-sense",
   "description": "A growing set of reusable Agent Skills. Currently includes make-it-make-sense.",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "author": {
     "name": "jonstermash"
   },
-  "homepage": "https://github.com/jonstermash/jonstermash-skills",
-  "repository": "https://github.com/jonstermash/jonstermash-skills",
+  "homepage": "https://github.com/jonstermash/make-it-make-sense",
+  "repository": "https://github.com/jonstermash/make-it-make-sense",
   "license": "MIT",
   "keywords": ["skills", "writing", "simplify", "communication"]
 }

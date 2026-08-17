@@ -1,16 +1,16 @@
 {
   "$schema": "https://code.claude.com/schemas/marketplace.json",
-  "name": "jonstermash-skills",
+  "name": "make-it-make-sense",
   "description": "Jon's personal collection of Agent Skills, distributed as an installable plugin.",
   "owner": {
     "name": "jonstermash"
   },
   "plugins": [
     {
-      "name": "jonstermash-skills",
-      "source": "./plugins/jonstermash-skills",
+      "name": "make-it-make-sense",
+      "source": "./plugins/make-it-make-sense",
       "description": "A growing set of reusable Agent Skills. Currently includes make-it-make-sense.",
-      "version": "0.5.1",
+      "version": "0.6.0",
       "author": {
         "name": "jonstermash"
       }

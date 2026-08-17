@@ -1,8 +1,17 @@
 # Changelog
 
-All notable changes to the `jonstermash-skills` plugin are recorded here. Format follows
+All notable changes to the `make-it-make-sense` plugin are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
+
+## [0.6.0]
+
+### Changed
+- **Renamed from `jonstermash-skills` to `make-it-make-sense`.** The repo, the marketplace, the
+  plugin, and the `plugins/` directory all now carry the skill's name. GitHub redirects the old repo
+  URL, but the marketplace and plugin IDs changed, so existing installs must remove the old
+  marketplace and re-add it: `/plugin marketplace add jonstermash/make-it-make-sense` then
+  `/plugin install make-it-make-sense@make-it-make-sense`.
 
 ## [0.5.1]
 
