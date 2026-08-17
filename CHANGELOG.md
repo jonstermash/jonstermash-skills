@@ -4,6 +4,24 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.1.0]
+
+### Added
+- **`syco-killer`: the standing rule for surfaces that can't run hooks.** The v1.0.0 design leaned
+  entirely on a `UserPromptSubmit` hook to make the gate always-on — but hooks are a Claude Code CLI
+  mechanism, and the Claude apps don't run them, so the centerpiece was inert for anyone working in
+  the chat or desktop UI. `references/standing-rule.md` now carries a paste-ready block for
+  **Settings → Instructions for Claude**, which loads every turn in those surfaces, plus a
+  surface-support table and a behavioral test procedure that doesn't rely on asking the model
+  whether it's loaded (asking is itself the sycophancy vector).
+- **`/syco-killer --standing`** prints that block.
+
+### Changed
+- **`syco-killer` must not report the gate as armed where the hook can't run.** Claiming a
+  successful arm in a surface that ignores hooks is exactly the unverified-success failure the
+  skill's own agentic section prohibits — committed by the skill itself.
+- **README** documents which mechanism applies per surface.
+
 ## [1.0.0]
 
 First stable release. Two skills instead of one, and the first bundled hook. Versions 0.6.0

@@ -42,6 +42,16 @@ Once installed, invoke a skill by its short name — `/make-it-make-sense` or `/
 
 The hook loads the rule early so it's *available*; the gates themselves run *last*, on the drafted response, because you can't filter a response you haven't written yet.
 
+**Hooks are Claude Code CLI only.** The Claude apps don't run them, so there the always-on rule is delivered through **Settings → Instructions for Claude** instead. Same content, different mechanism:
+
+| Surface | Skills work? | Always-on mechanism |
+|---|---|---|
+| Claude Code (CLI) | yes | the bundled hook — `/syco-killer` arms it |
+| Claude apps (chat, desktop) | yes | Instructions for Claude — `/syco-killer --standing` prints the block |
+| Claude Code in the desktop app | yes | neither reliably ([parity issue](https://github.com/anthropics/claude-code/issues/45514)) |
+
+Both skills work when invoked in every surface. Only the *standing* behavior depends on the mechanism. Full text and testing procedure: [`references/standing-rule.md`](./plugins/make-it-make-sense/skills/syco-killer/references/standing-rule.md).
+
 The hook is **opt-in**. Installing a writing plugin shouldn't silently rewrite how your assistant talks, so it emits nothing until you arm it:
 
 ```bash

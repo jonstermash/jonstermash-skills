@@ -164,11 +164,20 @@ Not every kind thing is sycophancy. Ease off — don't switch off — when someo
 
 ## Modes
 
-- **`/syco-killer`** — arm the standing gate. Writes `${CLAUDE_CONFIG_DIR:-$HOME/.claude}/syco-killer.on`, which the bundled `UserPromptSubmit` hook checks; while it exists, the compressed rule is injected ahead of every prompt in every session. Confirm in one line.
+- **`/syco-killer`** — arm the standing gate on Claude Code. Writes `${CLAUDE_CONFIG_DIR:-$HOME/.claude}/syco-killer.on`, which the bundled `UserPromptSubmit` hook checks; while it exists, the compressed rule is injected ahead of every prompt in every session. Confirm in one line. **If the hook can't run in this surface, say so instead of reporting success** — see below.
 - **`/syco-killer off`** — disarm. Remove that file. Confirm in one line.
 - **`/syco-killer --audit`** — read back the recent assistant turns and mark each violation: quote the line, name the tell, give the replacement. Report "no tells found" when that's the finding — an audit that always finds something is itself performative.
+- **`/syco-killer --standing`** — print the paste-ready block for **Settings → Instructions for Claude**, the always-on mechanism in the Claude apps. Full text and testing procedure: `references/standing-rule.md`.
 
-The hook is opt-in by design, and it exists because a skill loads only when its description matches the moment — which is the wrong mechanism here, since a sycophantic response never feels sycophantic from the inside. The hook makes the rule present; the gates make it fire. Installing a writing plugin shouldn't silently rewrite how the assistant talks, so arming it is the user's call.
+**Surface matters.** A skill loads only when its description matches the moment, and a sycophantic response never feels sycophantic from the inside — so something has to put the rule in front of the model unconditionally. What that something is depends on where you are:
+
+| Surface | Always-on mechanism |
+|---|---|
+| Claude Code (CLI) | The bundled `UserPromptSubmit` hook — `/syco-killer` arms it |
+| Claude apps (chat, desktop) | Instructions for Claude — `/syco-killer --standing` |
+| Claude Code inside the desktop app | Neither reliably; hooks aren't at parity with the CLI |
+
+Hooks are a Claude Code CLI mechanism; the desktop app's Code/Cowork surfaces don't run them. **Don't report the gate as armed in a surface that can't run the hook** — that's the exact failure this skill exists to prevent, committed by the skill itself. Arming is opt-in either way, because installing a writing plugin shouldn't silently rewrite how the assistant talks.
 
 ## Relationship to `make-it-make-sense`
 
