@@ -8,7 +8,7 @@ Add this repo as a marketplace, then install the plugin (in a Claude Code sessio
 
 ```bash
 /plugin marketplace add jonstermash/mims-public
-/plugin install mims-public@mims-public
+/plugin install make-it-make-sense@mims-public
 ```
 
 Or from your terminal:
@@ -17,16 +17,24 @@ Or from your terminal:
 claude plugin marketplace add jonstermash/mims-public
 ```
 
-Once installed, invoke a skill by its short name — `/make-it-make-sense` or `/syco-killer`. The namespaced form, `/mims-public:make-it-make-sense`, also works and is the unambiguous fallback if two plugins ever share a skill name. New skills added to the repo arrive automatically on `/plugin marketplace update`.
+Once installed, invoke a skill by its short name — `/make-it-make-sense` or `/syco-killer`. The namespaced form, `/make-it-make-sense:make-it-make-sense`, also works and is the unambiguous fallback if two plugins ever share a skill name. New skills added to the repo arrive automatically on `/plugin marketplace update`.
 
-> **Renamed to `mims-public` in v1.0.0,** from `jonstermash-skills`. The repo is now named for the container rather than for one of the skills inside it. The marketplace and plugin IDs changed, so existing installs must remove the old marketplace and re-add it with the command above. The skills themselves — `/make-it-make-sense` and `/syco-killer` — keep their names.
+**Naming**, since the repo and the plugin differ:
+
+| | |
+|---|---|
+| Repo / marketplace | `mims-public` — a container that can hold more over time |
+| Plugin | `make-it-make-sense`, displayed as **Make It Make Sense** |
+| Skills | `/make-it-make-sense`, `/syco-killer` |
+
+> **Renamed in v1.0.0** from `jonstermash-skills`. The marketplace and plugin IDs changed, so existing installs must remove the old marketplace and re-add it with the command above. The skills themselves keep their names.
 
 ## Skills
 
 | Skill | What it does |
 |-------|--------------|
-| [make-it-make-sense](./plugins/mims-public/skills/make-it-make-sense/) | Zoom out and simplify any written or presented output so it's understandable on the first pass. |
-| [syco-killer](./plugins/mims-public/skills/syco-killer/) | Sycophancy as an accuracy failure, not a tone problem. Four gates on the drafted response: the Open, the Judgment, the Challenge, the Close. Calibration, not contrarianism. |
+| [make-it-make-sense](./plugins/make-it-make-sense/skills/make-it-make-sense/) | Zoom out and simplify any written or presented output so it's understandable on the first pass. |
+| [syco-killer](./plugins/make-it-make-sense/skills/syco-killer/) | Sycophancy as an accuracy failure, not a tone problem. Four gates on the drafted response: the Open, the Judgment, the Challenge, the Close. Calibration, not contrarianism. |
 
 ### Arming syco-killer
 
@@ -53,7 +61,7 @@ mims-public/
 ├── .claude-plugin/
 │   └── marketplace.json              # marketplace catalog (read by /plugin GUI)
 ├── plugins/
-│   └── mims-public/
+│   └── make-it-make-sense/
 │       ├── .claude-plugin/
 │       │   └── plugin.json           # plugin manifest
 │       ├── hooks/
@@ -71,7 +79,7 @@ mims-public/
 
 ## Adding a new skill
 
-1. Create a new folder under `plugins/mims-public/skills/` named after the skill (kebab-case).
+1. Create a new folder under `plugins/make-it-make-sense/skills/` named after the skill (kebab-case).
 2. Add a `SKILL.md` with YAML frontmatter (`name`, `description`) followed by the instructions. Set `name` explicitly — without it, the invocation name falls back to the install directory, which for marketplace installs is a version string that changes on every update.
-3. Bump `version` in both `.claude-plugin/marketplace.json` and `plugins/mims-public/.claude-plugin/plugin.json` so installs receive the update.
+3. Bump `version` in both `.claude-plugin/marketplace.json` and `plugins/make-it-make-sense/.claude-plugin/plugin.json` so installs receive the update.
 4. Add a row to the table above.

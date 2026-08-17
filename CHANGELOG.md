@@ -1,26 +1,33 @@
 # Changelog
 
-All notable changes to the `mims-public` plugin are recorded here. Format follows
+All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
 ## [1.0.0]
 
-First stable release. Two skills instead of one, a container named for the container, and the
-first bundled hook. Versions 0.6.0 through 0.8.0 were developed but never released; their changes
-are consolidated here.
+First stable release. Two skills instead of one, and the first bundled hook. Versions 0.6.0
+through 0.8.0 were developed but never released; their changes are consolidated here.
 
 ### Changed
-- **Renamed from `jonstermash-skills` to `mims-public`.** The repo, the marketplace, the plugin,
-  and the `plugins/` directory now carry a container name rather than the name of a skill inside
-  them. That distinction didn't matter at one skill; at two it does — a plugin called
-  `make-it-make-sense` holding both `make-it-make-sense` and `syco-killer` implied the second was
-  somehow part of the first. **The skills are unchanged: `/make-it-make-sense` and `/syco-killer`
-  keep their names and their behavior.**
+- **Renamed from `jonstermash-skills`.** The repo and marketplace are now `mims-public`; the
+  plugin inside is **Make It Make Sense** (`make-it-make-sense`). Splitting the two names is the
+  point — the repo is a container that can hold more over time, while the plugin keeps the name
+  the project is actually known by.
+
+  | | |
+  |---|---|
+  | Repo / marketplace | `mims-public` |
+  | Plugin | `make-it-make-sense` — displayed as **Make It Make Sense** |
+  | Skills | `/make-it-make-sense`, `/syco-killer` |
+
+  **The skills are unchanged** — both keep their names and their behavior.
 
   Breaking for installs. GitHub redirects the old repo URLs, but the marketplace and plugin IDs
   changed, so existing installs must remove the old marketplace and re-add it:
-  `/plugin marketplace add jonstermash/mims-public` then `/plugin install mims-public@mims-public`.
+  `/plugin marketplace add jonstermash/mims-public` then `/plugin install make-it-make-sense@mims-public`.
+- **Added `displayName`** so the `/plugin` picker shows "Make It Make Sense" rather than the
+  kebab-case identifier.
 - **Plugin description and keywords** now name both bundled skills.
 
 ### Added
