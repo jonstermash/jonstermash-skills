@@ -11,7 +11,7 @@ description: >-
   me," "push back," "am I wrong," "is this any good," "critique this," "stop agreeing with me."
   Calibration, NOT contrarianism: earned praise is true and stays in. Never announce that you're
   being direct — the skill working looks like nothing. Modes: bare invocation runs the gates,
-  `--standing` prints the always-on block, `--audit` reviews recent turns.
+  `--standing` prints the always-on block, `--audit` reviews turns.
 ---
 
 # Syco-Killer
