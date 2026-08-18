@@ -1,23 +1,25 @@
 # mims-public
 
-A public collection of [Agent Skills](https://code.claude.com/docs/en/skills) — reusable instruction sets that extend what an AI assistant can do well — packaged as an installable **Claude Code plugin marketplace**.
+A public collection of [Agent Skills](https://code.claude.com/docs/en/skills) — reusable instruction sets that extend what an AI assistant can do well — packaged as an installable plugin.
 
 ## Install
 
-Add this repo as a marketplace, then install the plugin (in a Claude Code session or via the **`/plugin`** GUI):
+In Claude, go to **Settings → Plugins**:
+
+1. **Add** → paste `jonstermash/mims-public`
+2. **Browse** → find **Make It Make Sense** → install
+
+Then invoke a skill by name — `/make-it-make-sense` or `/syco-killer`. New skills added to the repo arrive automatically when you sync the marketplace.
+
+<details>
+<summary>Installing from the Claude Code CLI instead</summary>
 
 ```bash
 /plugin marketplace add jonstermash/mims-public
 /plugin install make-it-make-sense@mims-public
 ```
 
-Or from your terminal:
-
-```bash
-claude plugin marketplace add jonstermash/mims-public
-```
-
-Once installed, invoke a skill by its short name — `/make-it-make-sense` or `/syco-killer`. The namespaced form, `/make-it-make-sense:make-it-make-sense`, also works and is the unambiguous fallback if two plugins ever share a skill name. New skills added to the repo arrive automatically on `/plugin marketplace update`.
+</details>
 
 **Naming**, since the repo and the plugin differ:
 
@@ -36,31 +38,19 @@ Once installed, invoke a skill by its short name — `/make-it-make-sense` or `/
 | [make-it-make-sense](./plugins/make-it-make-sense/skills/make-it-make-sense/) | Zoom out and simplify any written or presented output so it's understandable on the first pass. |
 | [syco-killer](./plugins/make-it-make-sense/skills/syco-killer/) | Sycophancy as an accuracy failure, not a tone problem. Four gates on the drafted response: the Open, the Judgment, the Challenge, the Close. Calibration, not contrarianism. |
 
-### Arming syco-killer
+### Turning on syco-killer
 
-`syco-killer` is the one skill that shouldn't wait to be summoned — a sycophantic response never feels sycophantic from the inside, so a skill that fires only when the model thinks it's relevant fires exactly never. It ships with a `UserPromptSubmit` hook that injects a compressed version of the rule ahead of **every** prompt in **every** session, regardless of where — or whether — you mention it.
+Both skills work as soon as they're installed — type `/make-it-make-sense` or `/syco-killer`.
 
-The hook loads the rule early so it's *available*; the gates themselves run *last*, on the drafted response, because you can't filter a response you haven't written yet.
+But `syco-killer` is the one skill that shouldn't wait to be summoned. A sycophantic response never feels sycophantic from the inside, so a skill that fires only when the model thinks it's relevant fires exactly never. To make it standing, paste one block into **Settings → Instructions for Claude**:
 
-**Hooks are Claude Code CLI only.** The Claude apps don't run them, so there the always-on rule is delivered through **Settings → Instructions for Claude** instead. Same content, different mechanism:
-
-| Surface | Skills work? | Always-on mechanism |
-|---|---|---|
-| Claude Code (CLI) | yes | the bundled hook — `/syco-killer` arms it |
-| Claude apps (chat, desktop) | yes | Instructions for Claude — `/syco-killer --standing` prints the block |
-| Claude Code in the desktop app | yes | neither reliably ([parity issue](https://github.com/anthropics/claude-code/issues/45514)) |
-
-Both skills work when invoked in every surface. Only the *standing* behavior depends on the mechanism. Full text and testing procedure: [`references/standing-rule.md`](./plugins/make-it-make-sense/skills/syco-killer/references/standing-rule.md).
-
-The hook is **opt-in**. Installing a writing plugin shouldn't silently rewrite how your assistant talks, so it emits nothing until you arm it:
-
-```bash
-/syco-killer          # arm it (all sessions, until disarmed)
-/syco-killer off      # disarm
-/syco-killer --audit  # review the recent turns of this conversation for tells
+```
+/syco-killer --standing
 ```
 
-Arming and disarming just create and remove `~/.claude/syco-killer.on`, so you can also `touch` or `rm` that file yourself. The full procedure and tell-lists stay in the skill; the hook carries a ~35-line compression of it, which costs roughly 500 tokens on every turn — the price of a standing rule rather than an occasional one.
+That prints the block. It's also in [`references/standing-rule.md`](./plugins/make-it-make-sense/skills/syco-killer/references/standing-rule.md), along with how to test that it's actually landing. Instructions for Claude loads every turn, ahead of the conversation — that's what makes the gate unconditional.
+
+**Test it by behavior, not by asking.** Paste something mediocre and say "I wrote this and I think it's strong." Reflex praise means it isn't working. Asking the model whether the rule is loaded proves nothing, and a leading yes/no question is itself the vector you're testing for.
 
 ## Layout
 
@@ -74,16 +64,13 @@ mims-public/
 │   └── make-it-make-sense/
 │       ├── .claude-plugin/
 │       │   └── plugin.json           # plugin manifest
-│       ├── hooks/
-│       │   ├── hooks.json            # auto-discovered; registers the UserPromptSubmit hook
-│       │   └── syco-killer.sh        # emits the kill switch, only while armed
 │       └── skills/
 │           ├── make-it-make-sense/
 │           │   ├── SKILL.md
 │           │   └── references/       # loaded on demand, per pass
 │           └── syco-killer/
 │               ├── SKILL.md
-│               └── references/
+│               └── references/       # tells, outcome-honesty, standing-rule
 └── README.md
 ```
 

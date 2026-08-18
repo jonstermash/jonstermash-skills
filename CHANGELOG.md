@@ -4,6 +4,21 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.2.0]
+
+### Removed
+- **The `UserPromptSubmit` hook.** It was the centerpiece of v1.0.0 and it never functioned in the
+  surface this plugin is actually used in — hooks are Claude Code CLI only, and the Claude apps
+  don't run them. Keeping it meant every doc carried a surface caveat and the headline feature was
+  untestable for most users. `plugins/make-it-make-sense/hooks/` is gone.
+
+### Changed
+- **The standing rule is now *the* mechanism, not a fallback.** `references/standing-rule.md` is a
+  paste-once block for **Settings → Instructions for Claude**, which loads every turn. Same
+  unconditional delivery the hook was meant to provide, in the place it actually works.
+- **`/syco-killer --standing`** prints the block; the arm/disarm modes are gone with the hook.
+- **README leads with the Plugins UI.** CLI install moved to a collapsed section.
+
 ## [1.1.0]
 
 ### Added
