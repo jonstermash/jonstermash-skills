@@ -4,12 +4,110 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.4.0]
+
+### Added
+- **Build stamp, so a loaded build can identify itself.** `scripts/stamp-build.sh` writes
+  `plugins/make-it-make-sense/BUILD` with a version, a content hash, a source commit, and a UTC
+  build time. Version strings are hand-typed, so a build where a skill changed but the version
+  didn't is byte-different and version-identical — indistinguishable from inside a session. The
+  content hash covers every file in the plugin directory **except** `BUILD` itself, which is what
+  makes it well-defined rather than circular, and `--check` recomputes it from any checkout.
+  `source_commit` is honestly labelled as the *parent* of the commit carrying the stamp: writing
+  the stamp changes the tree, so a commit cannot record its own SHA. Use the content hash to prove
+  identity; the SHA is advisory.
+- **Three ways to read the build from a running session.** Tier 1: the hook prints one build line
+  on every prompt, which lands in context with zero tool calls. Tier 2: `cat BUILD` at the synced
+  plugin root. Tier 3 is **not implemented** — see below.
+
+### Changed
+- **The hook returns to production posture.** The v1.3.0 verification build was deliberately
+  unconditional, wrote logs to three paths, and emitted a large block. Its question is answered.
+  The arming gate is back, the logging is gone, and it now emits one build line always plus the
+  compressed gate only while armed.
+- **Container detection fixed.** The old heuristic tested for Docker (`/.dockerenv`, cgroup
+  markers) and so reported `container=no` in Cowork, which runs a **Firecracker microVM** — both
+  checks miss by design. It now tests for virtualization, keying on the `-fc-` tag in the kernel
+  release that the Cowork session actually reported. Behind `SYCO_DEBUG=1`, since it costs context
+  on every prompt and its question is now settled.
+
+### Fixed
+- **The description cap enforced since v0.4.0 was wrong.** This project trimmed skill descriptions
+  to stay under **1,024** characters. The documented cap is **1,536** — "the combined `description`
+  and `when_to_use` text is truncated at 1,536 characters in the skill listing to reduce context
+  usage" — and it's configurable via `skillListingMaxDescChars`, so 1,536 is a default rather than
+  a floor. Overflow is silent truncation in the listing, not an error, so the risk was real; the
+  number was not. Both descriptions sit near 1,015 and were never close to the true limit.
+  Nothing in the repo enforced 1,024 mechanically — it lived in the v0.4.0 changelog entry and in
+  habit. The entry now carries a correction and the number is retired. **Descriptions are
+  deliberately not re-expanded in this release**; this change stops enforcing a false constraint,
+  it doesn't spend the headroom.
+- **The v1.2.0 changelog entry was wrong, and it misled real decisions.** See the note added there.
+
+### Decided (recorded so they don't get reopened)
+- **`when_to_use`: not adopted.** It would be the natural home for trigger cues and would free
+  description space, but there are two frontmatter schemas — Claude Code local and plugin skills
+  accept all documented fields, while the claude.ai upload / Skills API / packaging path accepts
+  exactly six (`name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`) and
+  **hard-errors on unknown fields**. `when_to_use` is not among the six, and which validator runs on
+  the GitHub-marketplace → Cowork → synced path is undocumented. Not worth an unknown-schema risk
+  for a convenience.
+- **`version:` in frontmatter: closed permanently.** Same reason, but worse — it would hard-error on
+  the spec path. Not "untested." Not to be revisited.
+- **Tier 3 (skill-level build stamp): abandoned.** The only documented carrier is `metadata`, which
+  Claude Code explicitly "doesn't act on," so it never reaches model context and reading it requires
+  a file read — which is Tier 2. Tier 3 collapsed into Tier 2 and added nothing.
+
+### How to check which build is loaded
+- Run `scripts/stamp-build.sh` here and note the `content_hash` it prints. Start a new Cowork
+  session and read the hook's stamp line, which carries the same hash. If they match, the build you
+  published is the build that is running. Compare by eye; no harness needed.
+- **The hash is the only field that proves it.** The semver is hand-typed, and the sync layer's own
+  counter and timestamps move whenever a sync runs, whether or not the content changed. Only the
+  content hash is derived from the bytes.
+
+### Changed — stamp checking
+- **Drift and unexpected files are now different findings.** The stamp records the exact **file set**
+  it hashed, so `--check` hashes that set rather than "whatever is in the directory." A recorded file
+  that is missing or whose bytes changed is **DRIFT** and exits non-zero; a file that appears later is
+  **UNEXPECTED** and is reported without failing. This matters because a plugin can write into its own
+  root at runtime — pre-1.4.0 hooks wrote `hook-fired.log` there — and the naive approach would have
+  read that as content drift forever. Known runtime-written paths are excluded outright and named.
+  Measured, not assumed: the sync layer adds nothing, strips nothing, and preserves the executable
+  bit, so drift points at the payload rather than the transport.
+
+## [1.3.0]
+
+### Added
+- **The `UserPromptSubmit` hook, restored as a verification build.** v1.2.0 removed it on the
+  belief that hooks don't run outside the Claude Code CLI. This build was deliberately
+  unconditional — no arming gate, since an unarmed hook and a dead hook are indistinguishable from
+  outside — and emitted a sentinel plus a host/kernel/container fingerprint to settle the question
+  empirically.
+
+### Result
+- **Hooks fire in Cowork. Confirmed.** A plugin-declared `UserPromptSubmit` hook executes in
+  Cowork's cloud container *and* its stdout reaches the model's context. Observed: `host=vm`,
+  `user=root`, `kernel=Linux 6.18.5-fc-v20`,
+  `plugin_root=/root/.claude/plugins/synced/make-it-make-sense`. This settles
+  [anthropics/claude-code#47993](https://github.com/anthropics/claude-code/issues/47993) and
+  [#45514](https://github.com/anthropics/claude-code/issues/45514) for this surface.
+- The fingerprint also showed `container=no`, which was the heuristic being wrong rather than the
+  environment being bare metal — corrected in 1.4.0.
+
 ## [1.2.0]
 
 ### Removed
 - **The `UserPromptSubmit` hook.** It was the centerpiece of v1.0.0 and it never functioned in the
   surface this plugin is actually used in — hooks are Claude Code CLI only, and the Claude apps
-  don't run them. Keeping it meant every doc carried a surface caveat and the headline feature was
+  don't run them.
+
+  > **Correction (1.4.0).** The claim above is false and this entry is left in place only so the
+  > record is honest about it. Hooks **do** run in Cowork, and hook stdout **does** reach the
+  > model's context — confirmed empirically in 1.3.0. The removal rested on a single documentation
+  > snippet and two open issues reporting non-firing, none of which had been tested on this
+  > surface. The hook was restored in 1.3.0. Anyone reading 1.2.0 to decide whether hooks are
+  > viable should read 1.3.0 instead. Keeping it meant every doc carried a surface caveat and the headline feature was
   untestable for most users. `plugins/make-it-make-sense/hooks/` is gone.
 
 ### Changed
@@ -145,6 +243,12 @@ through 0.8.0 were developed but never released; their changes are consolidated 
 - **`make-it-make-sense`: trimmed the frontmatter `description` under the 1,024-character limit.**
   It was 1,283 characters (over the platform cap and at risk of truncation, which would cut trigger
   keywords). Every trigger cue is preserved; only rationale prose was cut.
+
+  > **Correction (1.4.0).** The 1,024 figure is wrong and was never sourced. The documented cap is
+  > **1,536** for `description` + `when_to_use` combined, configurable via
+  > `skillListingMaxDescChars`. The trim itself was still sound — 1,283 characters of rationale
+  > prose was worth cutting — but the number was invented, and it went on to constrain later
+  > releases for no reason. Don't carry it forward.
 
 ## [0.3.0] and earlier
 
