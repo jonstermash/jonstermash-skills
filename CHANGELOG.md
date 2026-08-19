@@ -4,6 +4,46 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.5.1]
+
+No skill content changed in this release. It ships the delivery fix that 1.5.0 needed and the
+checks that stop it recurring.
+
+### Fixed
+- **1.5.0 shipped to nobody.** `79e2728` bumped `plugin.json`, `BUILD`, and this changelog to 1.5.0
+  and left `.claude-plugin/marketplace.json` on 1.4.0. The `/plugin` GUI reads the **catalog**, so
+  the version users are offered came from the one file that didn't move: the "grade on the gap"
+  work was committed, tagged in the changelog, and undelivered for two commits. Anyone who synced
+  the marketplace in that window was told they were current while running a build without it. The
+  catalog is corrected and this release carries all four sources forward together.
+
+### Added
+- **The release invariants are now enforced instead of remembered.**
+  `.github/workflows/checks.yml` runs `scripts/check-repo.sh` on every push and pull request — the
+  repo's first CI. Four checks, each mapped to a way an install has broken or can break silently:
+  the manifests parse as JSON; the four version sources agree; `BUILD` matches the plugin tree; and
+  every `SKILL.md` declares an explicit `name:` matching its directory. Verified against the tree at
+  `79e2728` — the check fails it, which is the whole point of writing it.
+- **The checks are a script, not YAML.** The workflow checks out the repo and calls
+  `scripts/check-repo.sh`; all logic lives in the script so it runs by hand before committing. A
+  check that exists only in CI is one you find out about after you've pushed. It needs nothing but
+  bash and python3.
+- **`CLAUDE.md`** — working notes for anyone editing the repo: the install-breaking rules, the house
+  `SKILL.md` pattern, and what CI covers.
+
+### Notes
+- **Description length warns; it does not fail the build.** 1,536 is the documented default for
+  combined `description` and `when_to_use` text, it's configurable via `skillListingMaxDescChars`,
+  and overflow is silent truncation in the listing rather than an error. Gating on it would re-enact
+  the v0.4.0 mistake of enforcing a cap the tooling never imposed — a number this project already
+  spent a release retiring.
+- **Why `stamp-build.sh --check` couldn't have caught this.** It hashes exactly the files inside the
+  plugin directory, and `marketplace.json` sits outside that set, so it reports OK on a version
+  mismatch. That isn't a bug in the stamp — the catalog was never in its remit — but it does mean
+  the stamp check and the parity check cover different failures, and only one of them existed.
+- **`## [Unreleased]` is tolerated** by the parity check: it skips non-semver headings and reads the
+  first version below. This project has never used one, and the check doesn't require starting.
+
 ## [1.5.0]
 
 ### Added
