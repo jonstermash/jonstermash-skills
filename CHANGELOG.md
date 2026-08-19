@@ -4,6 +4,40 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.5.0]
+
+### Added
+- **`make-it-make-sense` now catches the verdict that its own caveat revokes.** A new Pass 1 ·
+  Substance move, **Grade on the gap, not around it**, targets a shape AI output produces
+  constantly: a pass verdict trailed by a disqualifying qualifier — "our spec was right, with one
+  real gap." Plainly, it's *this car runs, but it doesn't have wheels.* The framing is a substance
+  failure rather than a tone one, because the reader takes their action from the verdict and skims
+  the qualifier, so a "pass" headline over a "fail" body routes the decision wrong while appearing
+  to have disclosed everything. The test is whether the two halves imply the same next action —
+  ship vs. hold, approve vs. rework. If they diverge, the caveat *is* the verdict. The fix is a
+  reorder, not a cut: both facts survive, and what passed stops being the lead.
+- **The same rule, pointed at severity ratings.** Bug lists and audit findings produce a variant
+  where the headline isn't "pass" but "low priority": "it fails cleanly and writes nothing, so it's
+  much less urgent than #1 — but it blocks importing for any UPC the tenant hasn't used before."
+  Two moves stack there. The item is **graded on its failure mode instead of its consequence** —
+  "fails cleanly" answers *will this corrupt data?*, a real question, but not the one that sets
+  priority — and its severity is stated **by comparison** to another finding, when being less bad
+  than the worst item on a list is not the same as not blocking. Failing safe belongs in the line
+  about fixing the thing, never in the line about how much it matters. Watch the scope label too:
+  "any UPC the tenant hasn't used before" is every new product, i.e. the main path described as an
+  edge case.
+- **A gate that actually fires.** Pass 1's gate now requires that a reader who acted on the
+  one-line takeaway alone, having read none of the caveats, would still do the right thing. If any
+  caveat would change their action, the takeaway is **wrong**, not merely incomplete. Per this
+  project's standing convention, the gate fires from `SKILL.md` without the reference open; the
+  tell-lists, both worked examples, and the seam with `syco-killer` Gate 2 live in
+  `references/framing-tells.md`.
+
+### Notes
+- The seam with `syco-killer` is deliberate and not a duplicate. Gate 2's "say the disqualifying
+  thing early" governs *where bad news sits in a conversation*; this governs *the verdict itself in
+  an artifact*. Moving the gap up front doesn't help if the headline still reads "pass."
+
 ## [1.4.0]
 
 ### Added
