@@ -1,0 +1,21 @@
+name: checks
+
+# The release invariants, run on every push and PR. The logic lives in
+# scripts/check-repo.sh so it can be run by hand before committing — a check that
+# only exists in CI is a check you find out about after you've pushed.
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # No setup steps: bash and python3 are both preinstalled on the runner, and
+      # this repo has no dependencies to install.
+      - run: scripts/check-repo.sh
