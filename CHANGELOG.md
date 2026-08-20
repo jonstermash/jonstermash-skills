@@ -4,6 +4,50 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.6.0]
+
+### Added
+- **`make-it-make-sense` now catches the appeal to authority that names nothing.** A new Pass 1 ·
+  Substance move, **Name the source or drop the appeal**, targets the state sitting between a real
+  anchor and no anchor: "studies show," "industry best practice," "as many have noted," "research
+  suggests." It survives every check the skill already ran. A fabrication sweep hunts for specifics
+  that turn out to be false, and this has no specific to falsify — it borrows the *shape* of
+  evidence without the content, and the reader grants it the credibility of a citation anyway. Two
+  fixes, in order: name the source, or drop the appeal and make the claim on its own authority,
+  which is honest because it was yours all along. The softened variant — "it's generally accepted,"
+  "the consensus seems to be" — is the same move wearing a hedge that makes it feel more careful
+  and less checkable. Tell-list in `references/framing-tells.md`.
+- **The significance coda, on Pass 2's usual-offenders list.** A closing passage that explains what
+  the piece *meant*, restating the point it already made and adding a moral to it. The redundancy
+  sweep already covered the neighbouring cases — an intro restating the summary, a "next steps"
+  repeating the recommendation — but not this one. Note the inversion, which is why it needs saying:
+  leading with the answer is the rule; stating it a second time as a lesson is the failure.
+- **Causal tidiness, as a `references/quant-claims.md` tell.** The drafting-side view of
+  causation-vs-correlation: a draft reaches for one cause where the evidence supports several,
+  because a single clean chain reads better than a tangle. The tell is that every contributing
+  factor has been resolved into the one the author acted on — nothing left over, nothing competing.
+  When a causal chain has no loose ends, the loose ends were cut. Includes the related ending
+  failure: a piece that resolves on a feeling ("the team is now aligned") rather than a decision.
+
+### Notes
+- **Source, and what was deliberately not taken from it.** These three come from Russell et al.,
+  *StoryScope: Investigating idiosyncrasies in AI fiction* (2026, preprint) — a study finding that
+  discourse-level narrative features alone separate human from AI fiction at 93.2% macro-F1, with no
+  stylistic signals, over 61,608 stories. The human corpus is published short fiction (Books3), not
+  amateur writing, so the contrast is professional prose against LLM output.
+
+  What transferred is three specific reflexes with clean non-fiction analogues. What did **not**:
+  the detection framing and the headline number, which are a measurement result, not an editing
+  target; the per-model fingerprints (flat event escalation, dream sequences), which are
+  unactionable per-artifact and stale by the next release; and the fiction-craft findings —
+  temporal complexity, moral ambiguity, unresolved endings — which are virtues in a story and
+  defects in a memo. Optimizing a status update toward non-linear time would be worse writing for
+  that reader. The paper is evidence that the Premise's convergence claim is real and
+  model-general; it is not a style to copy.
+- **No new pass, and no description change.** All three land inside the existing passes and fire
+  from their gates. The frontmatter trigger cues already cover the cases, and both skill
+  descriptions sit near 1,015 of the 1,536 listing budget — headroom, not a reason to spend it.
+
 ## [1.5.1]
 
 No skill content changed in this release. It ships the delivery fix that 1.5.0 needed and the
