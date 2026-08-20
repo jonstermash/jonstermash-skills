@@ -4,6 +4,63 @@ All notable changes to this project are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project uses
 [semantic versioning](https://semver.org/).
 
+## [1.7.0]
+
+### Fixed
+- **The Structure gate was selecting for the failure it was meant to catch.** Literal headings —
+  "Why the migration slipped from June to August," "What this means for the onboarding team" — kept
+  surviving the pass, and the reason was the gate itself, not a missing anti-pattern. It asked that
+  the headings "tell the story on their own." Run a clean categorical outline through that test
+  (Scope · Method · Findings · Limitations · Cost) and it **fails** — those name the shape, not the
+  story. Run a fully literal one through it ("We tested 40 accounts over six weeks," "Churn traces
+  to pricing, not onboarding," …) and it **passes**: distinct, no colons, no filler, no orphaned
+  pronouns, and it tells the story completely. Every run of the pass therefore pushed headings
+  toward carrying more content, which is the same axis as more literal. Adding a tenth anti-pattern
+  would not have helped, because the gate closes the pass and the gate is what actually runs.
+
+### Changed
+- **Headings now default to a categorical noun phrase.** The Pass 2 move is restated: a heading
+  names what the section is *about*, not a sentence restating what it *says* — "Method," not "What
+  we measured"; "Rollback plan," not "How we'd back this out if it fails." The reasoning is what a
+  heading is for. The reader navigates by it, which wants a short stable address; a heading that
+  delivers the content makes them read it twice and turns the outline into a summary, which is the
+  one thing a table of contents must not be.
+- **The claim heading is now the deliberate exception, not a co-equal branch.** It stays legal and
+  stays right where the heading may be the only thing read — a slide, an email subject, a report's
+  single headline finding — and it must still be paid off by its body. What changed is that you
+  reach for it on purpose rather than drifting into it. An outline that is entirely claims has
+  stopped being an outline. The old framing routed by content type (reference → label, argument →
+  claim), which classified literal headings into the argument branch and waved them through.
+- **The gate, rewritten.** The outline must read as an **index, not a summary**: each heading names
+  its own subject, none restates its section's opening line, any claim heading is deliberate and
+  paid off, and each is specific enough that it could not sit unchanged over someone else's
+  document on another topic. The last criterion replaces the load the old "tell the story" test was
+  carrying — it still rejects a vacuous outline, without rewarding a literal one.
+
+### Added
+- **`references/titles.md` names the literal heading directly,** with two tests: does the heading
+  carry a **finite verb** ("Why the migration *slipped*," "What this *means*") — a categorical
+  heading is a noun phrase, so the verb is the tell — and does it **restate the section's first
+  sentence**, which is the significance coda in miniature, at the top instead of the bottom. The
+  fix is usually a shorter noun phrase already inside the heading: "How the cache invalidation
+  actually works" → "Cache invalidation."
+- **"Categorical is not vague," stated explicitly.** "Overview," "Background," "Next Steps," "Other
+  Considerations" are categorical *and* interchangeable. The default is the shortest noun phrase
+  still specific to this piece. The `Zero tension` anti-pattern is renamed `Generic` accordingly —
+  its old wording asked headings to create *curiosity*, which pushed toward the teaser the same
+  page rejects elsewhere.
+
+### Notes
+- **Two anti-patterns were revised, not just added to.** `Zero tension` and `Throat-clearing` both
+  told the reader to replace a weak heading with "the point" or "the verdict or claim the section
+  delivers." Left alone they would have contradicted the new default on the same page. They now
+  point at the subject instead.
+- **Rule-reference files keep their imperative headings.** `titles.md`, `framing-tells.md`, and
+  `quant-claims.md` head each rule with the rule itself ("Cut defensive framing," "Define by
+  essence, not example"). That is the deliberate-exception case, applied consistently: in a list of
+  rules the heading *is* the content, and the outline is meant to read as the ruleset. Not an
+  oversight, and not a licence to write memo headings that way.
+
 ## [1.6.0]
 
 ### Added
