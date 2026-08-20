@@ -96,6 +96,28 @@ When the piece describes an existing artifact — a skill, a product, a doc, a f
 
 Represent its scale honestly, too. "It'll be running on everything" for what is really a list of editing moves is scope inflation — the heading-buzzword problem applied to a claim. Describe what the thing is, at the size it actually is.
 
+## Name the source or drop the appeal
+
+The anchor rule has two failure modes people look for — no anchor, and an invented one. This is the third, and it survives both checks: the **unnamed appeal to authority**.
+
+- "Studies show teams ship faster with fewer meetings."
+- "Industry best practice is a 30-day window."
+- "As many have noted, this is the hard part."
+- "Research suggests the opposite."
+
+None of these can be fact-checked, which is exactly why they pass. A fabrication sweep hunts for specifics that turn out to be false; this has no specific to falsify. It borrows the *shape* of evidence without the content, and the reader grants it the credibility of a citation.
+
+Two fixes, in order of preference:
+
+1. **Name it.** "Studies show" → "the 2026 DORA report found." If you can name it, the sentence gets stronger and shorter.
+2. **Drop the appeal and make the claim.** "Industry best practice is a 30-day window" → "Use a 30-day window." The claim now stands on its own authority, which is honest — it was yours all along. A reader can argue with it, which is the point.
+
+What never works is keeping the gesture and hoping. If you can't name the source, you don't have one.
+
+**Watch for the softened variant**, which is the same move wearing a hedge: "it's generally accepted," "the consensus seems to be," "most people would say." The hedge makes it feel more careful. It makes it less checkable.
+
+*Empirical note.* This maps to a measured difference between published human fiction and LLM output: AI stories favor vague allusions over specific named references (72% vs. 50%), and human authors reference specific texts and authors at nearly double the AI rate (47% vs. 24%) — Russell et al., *StoryScope* (2026). The domain is fiction, so treat it as evidence that the reflex is real and model-general, not as a target ratio for a memo.
+
 ## Define by essence, not example
 
 Lead a definition or framing with the core idea in plain terms; attach examples only as illustration ("…e.g. X, Y"). If the examples were removed, the sentence should still define the thing.
